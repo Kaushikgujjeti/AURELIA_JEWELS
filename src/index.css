@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+html {
+  background-color: #0f0b0b;
+  color: #f5e9d6;
+  font-family: "Inter", sans-serif;
+}
+
+input {
+  background: transparent;
+  border: 1px solid #c9a36b66;
+  padding: 12px;
+  border-radius: 6px;
+}
