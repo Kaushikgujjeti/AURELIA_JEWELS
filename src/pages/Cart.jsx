@@ -1,17 +1,33 @@
 import { useContext } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 const Cart = () => {
   const { cart, dispatch } = useContext(CartContext);
-
+  const navigate = useNavigate();
   const subtotal = cart.reduce(
     (total, item) => total + item.price * item.qty,
     0
   );
 
   if (cart.length === 0) {
-    return <p className="p-10 text-center">Your cart is empty</p>;
+    return (
+      <div className="max-w-5xl mx-auto px-6 py-20 text-center">
+        <p className="p-10 text-2xl text-center">Your cart is empty.</p>
+
+        <Link
+          to="/shop"
+          className="bg-[#c9a36b] text-black px-10 py-3 tracking-widest"
+        >
+          SHOP NOW
+        </Link>
+      </div>
+    );
   }
+
+  const handleCheckout = () => {
+    navigate("/checkout");
+  };
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-20">
@@ -23,11 +39,7 @@ const Cart = () => {
           className="flex justify-between items-center border-b border-[#c9a36b]/20 py-6"
         >
           <div className="flex gap-6 items-center">
-            <img
-              src={item.image}
-              className="w-24 rounded"
-              alt={item.name}
-            />
+            <img src={item.image} className="w-24 rounded" alt={item.name} />
 
             <div>
               <p className="mb-1">{item.name}</p>
@@ -60,10 +72,11 @@ const Cart = () => {
       ))}
 
       <div className="text-right mt-10">
-        <p className="text-xl mb-4">
-          Total: ₹{subtotal.toLocaleString()}
-        </p>
-        <button className="bg-[#c9a36b] text-black px-10 py-3 tracking-widest">
+        <p className="text-xl mb-4">Total: ₹{subtotal.toLocaleString()}</p>
+        <button
+          onClick={() => handleCheckout()}
+          className="bg-[#c9a36b] text-black px-10 py-3 tracking-widest"
+        >
           CHECKOUT
         </button>
       </div>

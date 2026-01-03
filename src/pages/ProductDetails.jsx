@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
 import { products } from "../data/aureliaData";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { dispatch } = useContext(CartContext);
+  const navigate = useNavigate();
 
   const product = products.find((p) => p.id === id);
 
@@ -43,7 +45,10 @@ const ProductDetails = () => {
             ADD TO CART
           </button>
 
-          <button className="bg-[#c9a36b] text-black px-8 py-3 tracking-widest">
+          <button
+            onClick={() => navigate("/checkout")}
+            className="bg-[#c9a36b] text-black px-8 py-3 tracking-widest"
+          >
             BUY NOW
           </button>
         </div>
